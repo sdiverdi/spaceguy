@@ -1,0 +1,139 @@
+{
+  "prompt": {
+    "3": {
+      "class_type": "KSampler",
+      "inputs": {
+        "seed": 401304,
+        "steps": 28,
+        "cfg": 6,
+        "sampler_name": "euler",
+        "scheduler": "normal",
+        "denoise": 1,
+        "model": [
+          "13",
+          0
+        ],
+        "positive": [
+          "6",
+          0
+        ],
+        "negative": [
+          "7",
+          0
+        ],
+        "latent_image": [
+          "5",
+          0
+        ]
+      }
+    },
+    "4": {
+      "class_type": "CheckpointLoaderSimple",
+      "inputs": {
+        "ckpt_name": "SDXL/sd_xl_base_1.0.safetensors"
+      }
+    },
+    "5": {
+      "class_type": "EmptyLatentImage",
+      "inputs": {
+        "width": 768,
+        "height": 768,
+        "batch_size": 3
+      }
+    },
+    "6": {
+      "class_type": "CLIPTextEncode",
+      "inputs": {
+        "text": "pixel art, 16-bit video game player sprite, single character only, canonical three quarter view only, full body, neutral idle pose, standing straight, feet planted, arms relaxed, readable silhouette, slight three quarter turn, space marine bounty hunter armor, visor helmet, arm cannon, colorful retro palette, saturated teal orange red yellow accents, simple readable clusters, flat cel shading, centered, no background, game sprite",
+        "clip": [
+          "13",
+          1
+        ]
+      }
+    },
+    "7": {
+      "class_type": "CLIPTextEncode",
+      "inputs": {
+        "text": "front view, side view, profile view, back view, rear view, front and back view together, turnaround sheet, model sheet, character sheet, multiple poses, two characters, duplicate character, mirrored character, split view, dynamic pose, action pose, running, jumping, crouching, aiming, attack pose, twisted torso, foreshortening, extreme angle, perspective, illustration, anime render, painterly, gradients, soft shading, anti-aliased edges, texture, background, scenery, text, watermark, logo",
+        "clip": [
+          "13",
+          1
+        ]
+      }
+    },
+    "8": {
+      "class_type": "VAEDecode",
+      "inputs": {
+        "samples": [
+          "3",
+          0
+        ],
+        "vae": [
+          "4",
+          2
+        ]
+      }
+    },
+    "9": {
+      "class_type": "ImageScale",
+      "inputs": {
+        "image": [
+          "8",
+          0
+        ],
+        "upscale_method": "area",
+        "width": 96,
+        "height": 96,
+        "crop": "disabled"
+      }
+    },
+    "10": {
+      "class_type": "ImageQuantize",
+      "inputs": {
+        "image": [
+          "9",
+          0
+        ],
+        "colors": 28,
+        "dither": "none"
+      }
+    },
+    "11": {
+      "class_type": "ImageScaleBy",
+      "inputs": {
+        "image": [
+          "10",
+          0
+        ],
+        "upscale_method": "nearest-exact",
+        "scale_by": 6
+      }
+    },
+    "12": {
+      "class_type": "SaveImage",
+      "inputs": {
+        "filename_prefix": "player-space-marine-threequarter-idle-sdxl-pixel-lora",
+        "images": [
+          "11",
+          0
+        ]
+      }
+    },
+    "13": {
+      "class_type": "LoraLoader",
+      "inputs": {
+        "model": [
+          "4",
+          0
+        ],
+        "clip": [
+          "4",
+          1
+        ],
+        "lora_name": "pixel_art_sdxl.safetensors",
+        "strength_model": 3,
+        "strength_clip": 3
+      }
+    }
+  }
+}

@@ -13,7 +13,7 @@ started_at="$(date +%s)"
 
 while true; do
   pod_json="$(api_request GET "/pods/${RUNPOD_POD_ID}")"
-  desired_status="$(printf '%s' "$pod_json" | json_get_or_empty 'data.desiredStatus || ""')"
+  desired_status="$(printf '%s' "$pod_json" | json_get_or_empty 'data?.desiredStatus || desiredStatus || ""')"
   comfy_url="$(printf '%s' "$pod_json" | pod_http_url_from_json)"
 
   if [[ -n "$comfy_url" ]]; then

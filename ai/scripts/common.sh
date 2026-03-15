@@ -9,6 +9,14 @@ STATE_FILE="$STATE_DIR/runpod.env"
 ENV_FILE="${AI_ENV_FILE:-$AI_DIR/.env}"
 RUNPOD_BASE_URL="${RUNPOD_BASE_URL:-https://rest.runpod.io/v1}"
 
+configure_windows_shell_compat() {
+  case "${OSTYPE:-}:${MSYSTEM:-}" in
+    msys:*|cygwin:*|*:*MINGW*)
+      export MSYS2_ENV_CONV_EXCL="${MSYS2_ENV_CONV_EXCL:+$MSYS2_ENV_CONV_EXCL;}RUNPOD_VOLUME_MOUNT_PATH;RUNPOD_START_COMMAND"
+      ;;
+  esac
+}
+
 load_env_file() {
   local file_path="$1"
   if [[ -f "$file_path" ]]; then
@@ -21,6 +29,7 @@ load_env_file() {
 
 load_env_file "$ENV_FILE"
 load_env_file "$STATE_FILE"
+configure_windows_shell_compat
 
 RUNPOD_BASE_URL="${RUNPOD_BASE_URL:-https://rest.runpod.io/v1}"
 COMFYUI_PORT="${COMFYUI_PORT:-8188}"

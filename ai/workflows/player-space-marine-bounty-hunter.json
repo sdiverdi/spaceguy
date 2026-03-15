@@ -1,0 +1,123 @@
+{
+  "prompt": {
+    "3": {
+      "class_type": "KSampler",
+      "inputs": {
+        "seed": 247307,
+        "steps": 22,
+        "cfg": 6.2,
+        "sampler_name": "euler",
+        "scheduler": "normal",
+        "denoise": 1,
+        "model": [
+          "4",
+          0
+        ],
+        "positive": [
+          "6",
+          0
+        ],
+        "negative": [
+          "7",
+          0
+        ],
+        "latent_image": [
+          "5",
+          0
+        ]
+      }
+    },
+    "4": {
+      "class_type": "CheckpointLoaderSimple",
+      "inputs": {
+        "ckpt_name": "SD1.5/AOM3A1_orangemixs.safetensors"
+      }
+    },
+    "5": {
+      "class_type": "EmptyLatentImage",
+      "inputs": {
+        "width": 320,
+        "height": 320,
+        "batch_size": 6
+      }
+    },
+    "6": {
+      "class_type": "CLIPTextEncode",
+      "inputs": {
+        "text": "16-bit video game sprite, sci-fi bounty hunter space marine, full body character sheet pose, helmet visor, arm cannon, compact armor plates, heavy boots, readable silhouette, flat cel shading, very simple shapes, limited palette, crisp edges, no texture, no background, centered, retro console sprite, game asset",
+        "clip": [
+          "4",
+          1
+        ]
+      }
+    },
+    "7": {
+      "class_type": "CLIPTextEncode",
+      "inputs": {
+        "text": "illustration, anime render, painting, gradients, soft shading, anti-aliased edges, texture, noise, detailed background, scenery, multiple characters, text, watermark, logo, cropped, close-up, photorealistic, concept art",
+        "clip": [
+          "4",
+          1
+        ]
+      }
+    },
+    "8": {
+      "class_type": "VAEDecode",
+      "inputs": {
+        "samples": [
+          "3",
+          0
+        ],
+        "vae": [
+          "4",
+          2
+        ]
+      }
+    },
+    "9": {
+      "class_type": "ImageScale",
+      "inputs": {
+        "image": [
+          "8",
+          0
+        ],
+        "upscale_method": "area",
+        "width": 96,
+        "height": 96,
+        "crop": "disabled"
+      }
+    },
+    "10": {
+      "class_type": "ImageQuantize",
+      "inputs": {
+        "image": [
+          "9",
+          0
+        ],
+        "colors": 20,
+        "dither": "none"
+      }
+    },
+    "11": {
+      "class_type": "ImageScaleBy",
+      "inputs": {
+        "image": [
+          "10",
+          0
+        ],
+        "upscale_method": "nearest-exact",
+        "scale_by": 6
+      }
+    },
+    "12": {
+      "class_type": "SaveImage",
+      "inputs": {
+        "filename_prefix": "player-space-marine-bounty-hunter-spritepass",
+        "images": [
+          "11",
+          0
+        ]
+      }
+    }
+  }
+}

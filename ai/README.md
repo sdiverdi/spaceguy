@@ -28,6 +28,8 @@ The scripts are designed for the cheapest practical hobby workflow:
   - a `RUNPOD_TEMPLATE_ID`, or
   - a `RUNPOD_IMAGE_NAME` plus a startup command that launches ComfyUI on port `8188`
 
+On Windows Git Bash, the scripts now guard against MSYS path conversion rewriting container paths like `/workspace` into local paths such as `C:/Program Files/Git/workspace`.
+
 ## Recommended Starter Config
 
 For hobby use, start with:

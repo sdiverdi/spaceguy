@@ -15,9 +15,9 @@ require_env COMFYUI_URL
 
 payload_file="$(mktemp)"
 
-node "$workflow_file" > "$payload_file" <<'NODE'
+WORKFLOW_FILE="$workflow_file" node <<'NODE' > "$payload_file"
 const fs = require('fs')
-const workflowPath = process.argv[1]
+const workflowPath = process.env.WORKFLOW_FILE
 const input = JSON.parse(fs.readFileSync(workflowPath, 'utf8'))
 const payload = Object.prototype.hasOwnProperty.call(input, 'prompt') ? input : { prompt: input }
 process.stdout.write(JSON.stringify(payload, null, 2))

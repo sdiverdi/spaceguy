@@ -21,6 +21,14 @@ const env = process.env
 const split = (value) => (value || '').split(',').map((item) => item.trim()).filter(Boolean)
 const intValue = (value, fallback) => value === undefined || value === '' ? fallback : Number.parseInt(value, 10)
 const boolValue = (value, fallback) => value === undefined || value === '' ? fallback : /^true$/i.test(value)
+const normalizeContainerPath = (value, fallback) => {
+  const candidate = value === undefined || value === '' ? fallback : value
+  const gitForWindowsPrefix = candidate.match(/^[A-Za-z]:\/Program Files\/Git(\/.*)$/)
+  if (gitForWindowsPrefix) {
+    return gitForWindowsPrefix[1]
+  }
+  return candidate.replace(/\\/g, '/')
+}
 
 if (env.RUNPOD_TEMPLATE_ID && env.RUNPOD_IMAGE_NAME) {
   console.error('Set exactly one of RUNPOD_TEMPLATE_ID or RUNPOD_IMAGE_NAME, not both.')
@@ -41,7 +49,7 @@ const payload = {
   gpuTypePriority: env.RUNPOD_GPU_TYPE_PRIORITY || 'availability',
   containerDiskInGb: intValue(env.RUNPOD_CONTAINER_DISK_GB, 50),
   volumeInGb: intValue(env.RUNPOD_VOLUME_GB, 30),
-  volumeMountPath: env.RUNPOD_VOLUME_MOUNT_PATH || '/workspace',
+  volumeMountPath: normalizeContainerPath(env.RUNPOD_VOLUME_MOUNT_PATH, '/workspace'),
   ports: split(env.RUNPOD_PORTS || '8188/http,22/tcp'),
   supportPublicIp: boolValue(env.RUNPOD_SUPPORT_PUBLIC_IP, true),
   interruptible: boolValue(env.RUNPOD_INTERRUPTIBLE, false),

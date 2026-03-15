@@ -10,10 +10,11 @@ require_runpod_api
 require_pod_id
 
 pod_json="$(api_request GET "/pods/${RUNPOD_POD_ID}")"
-COMFYUI_PORT="$COMFYUI_PORT" node <<'NODE' <<<"$pod_json"
+POD_JSON="$pod_json" COMFYUI_PORT="$COMFYUI_PORT" node <<'NODE'
 const fs = require('fs')
 
-const data = JSON.parse(fs.readFileSync(0, 'utf8'))
+const payload = JSON.parse(process.env.POD_JSON || '{}')
+const data = payload.data ?? payload
 const port = process.env.COMFYUI_PORT || '8188'
 const mappedPort = data.portMappings?.[String(port)] || ''
 const comfyUrl = data.publicIp && mappedPort ? `http://${data.publicIp}:${mappedPort}` : ''
