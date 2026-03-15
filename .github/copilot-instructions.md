@@ -1,0 +1,9 @@
+- [x] Verify that the copilot-instructions.md file in the .github directory is created.
+- [x] Clarify Project Requirements: build a browser-based 2D platformer with exploration, combat, upgrades, and a Super Metroid-style feel using TypeScript.
+- [x] Scaffold the Project: created a Vite vanilla TypeScript app in the current workspace and installed dependencies.
+- [x] Customize the Project: replaced the starter app with the Shardfall Depths canvas game, custom HUD, room map, enemies, pickups, stations, and extraction goal.
+- [x] Install Required Extensions: no project setup extensions were required.
+- [x] Compile the Project: production build passes with `npm run build`.
+- [x] Create and Run Task: added build and dev tasks, and started the dev server task on `127.0.0.1:4173`.
+- [ ] Launch the Project: reserved for explicit user confirmation to start a debug launch configuration.
+- [x] Ensure Documentation is Complete: added README project docs and cleaned this file to reflect the current repo state.
